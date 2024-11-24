@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Tracker</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Cryptocurrency Tracker</h1>
+        <form id="trackerForm">
+            <label for="ticker">Cryptocurrency Ticker (e.g., BTC-USD):</label>
+            <input type="text" id="ticker" name="ticker" required>
+            <label for="period">Data Period (e.g., 7d, 1mo):</label>
+            <input type="text" id="period" name="period">
+            <label for="interval">Data Interval (e.g., 1h, 1d):</label>
+            <input type="text" id="interval" name="interval">
+            <button type="submit">Track</button>
+        </form>
+
+        <div id="result">
+            <h2 id="tickerTitle"></h2>
+            <div id="plot"></div>
+            <div id="table"></div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#trackerForm').on('submit', function (e) {
+                e.preventDefault();
+                $('#result').hide();
+                const formData = $(this).serialize();
+
+                $.post('/track', formData, function (response) {
+                    if (response.error) {
+                        alert(response.error);
+                    } else {
+                        $('#tickerTitle').text(response.ticker);
+                        $('#plot').html(`<img src="data:image/png;base64,${response.plot}" alt="Price Chart">`);
+                        $('#table').html(response.data);
+                        $('#result').show();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
