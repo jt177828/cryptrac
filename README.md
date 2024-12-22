@@ -4,7 +4,7 @@ A wonderful web application where you and your friends can track cryptocurrencie
 
 ## Main Contributers
 
-Frontend: [Justin Tian](https://github.com/jt177828)
+Frontend: [Justin Tian](https://github.com/jt177828)  
 Backend: [William Dai](https://github.com/will2dai4)
 
 ## Updates (MM/DD/YYYY)
